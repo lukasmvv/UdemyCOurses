@@ -11,6 +11,13 @@
 
     <body>
         <div class="wrapper clearfix">
+
+            <div class="winning-input-panel">
+                <div class="winning-input-text">Winning Score</div>
+                <input class="winning-input" type="number" name="quantity" min="10" max="200" value=50>
+            </div>
+            
+            
             <div class="player-0-panel active">
                 <div class="player-name" id="name-0">Player 1</div>
                 <div class="player-score" id="score-0">43</div>
@@ -33,9 +40,10 @@
             <button class="btn-roll"><i class="ion-ios-loop"></i>Roll dice</button>
             <button class="btn-hold"><i class="ion-ios-download-outline"></i>Hold</button>
             
-            <img src="dice-5.png" alt="Dice" class="dice">
+            <img src="dice-5.png" alt="Dice" class="dice" id='dice-1'>
+            <img src="dice-1.png" alt="Dice" class="dice" id='dice-2'>
         </div>
         
-        <script src="app.js"></script>
+        <script src="app_1.js"></script>
     </body>
 </html>
