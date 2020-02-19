@@ -10,14 +10,13 @@ class App extends Component {
   }
 
   textChangeListener = (event) => {
-    let newText = event.target.value;
     this.setState({
-      text: newText
+      text: event.target.value
     });
   }
 
   removeCharFromText = (index) => {
-    const text = [...this.state.text];
+    const text = [...this.state.text]; 
     text.splice(index,1); 
     this.setState({text: text.join('')});
   }
@@ -43,7 +42,10 @@ class App extends Component {
 
     return (
       <div className="App">
-        <input type="text" onChange={(event) => this.textChangeListener(event)} value={this.state.text}></input>
+        <input 
+          type="text" 
+          onChange={(event) => this.textChangeListener(event)} 
+          value={this.state.text}></input>
         <p>{this.state.text.length}</p>
         <ValidationComponent textLength={this.state.text.length}></ValidationComponent>
         {chars}

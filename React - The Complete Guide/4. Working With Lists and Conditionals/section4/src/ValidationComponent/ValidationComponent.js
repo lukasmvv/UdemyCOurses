@@ -1,12 +1,16 @@
 import React from 'react';
 import './ValidationComponent.css';
 
-const validationComponent = (props) => {
-    const textLength = props.textLength;
-    
+const validationComponent = (props) => {    
+
+    let valMes = 'Text long enough';
+
+    if (props.textLength<5) {
+        valMes = 'Text too short';
+    }
     return (
         <div className="ValidationComponent">
-            <p>{textLength<5 ? 'Text too short' : 'Text long enough'}</p>
+            <p>{valMes}</p>
         </div>
     )
 }
