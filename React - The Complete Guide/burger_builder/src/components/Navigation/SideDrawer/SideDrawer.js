@@ -8,6 +8,8 @@ import Aux from '../../../hoc/Pax';
 const sideDrawer = (props) => {
     
     const attachedClasses = [classes.SideDrawer, props.open ? classes.Open : classes.Closed];
+    console.log(props.open);
+    console.log(attachedClasses);
     
     return (
         <Aux>
