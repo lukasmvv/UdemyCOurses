@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import classes from './Checkout.module.css';
+// import classes from './Checkout.module.css';
 import CheckoutSummary from '../../components/CheckoutSummary/CheckoutSummary';
 import {Route, Redirect} from 'react-router-dom';
 import ContactData from './ContactData/ContactData';
 import {connect} from 'react-redux';
-import * as actions from '../../store/actions/index';
+// import * as actions from '../../store/actions/index';
 
 class Checkout extends Component {
     /*
@@ -71,10 +71,10 @@ const mapStateToProps = state => {
     }
 };
 
-const mapDispatchToProps = dispatch => {
-    return {
-        onInitPurchase: () => dispatch(actions.purchaseInit)
-    }
-}
+// const mapDispatchToProps = dispatch => {
+//     return {
+//         onInitPurchase: () => dispatch(actions.purchaseInit)
+//     }
+// }
 
 export default connect(mapStateToProps)(Checkout);
