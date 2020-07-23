@@ -20,7 +20,6 @@ const reducer = (state=initialState, action) => {
                 purchased: true
             };
         case actionTypes.PURCHASE_BURGER_FAIL:
-            console.log(action);
             return {
                 ...state,
                 loading: false
