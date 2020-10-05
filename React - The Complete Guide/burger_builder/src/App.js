@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useEffect} from 'react';
 // import { render } from '@testing-library/react';
 import {Route, Switch, withRouter, Redirect} from 'react-router-dom';
 
@@ -13,42 +13,45 @@ import Logout from './containers/Auth/Logout/Logout';
 import {connect} from 'react-redux';
 import * as actions from './store/actions/index';
 
-class App extends Component {
+const App = props => {
 
-  componentDidMount() {
-    this.props.onTryAutoSignUp();
-  }
+  // componentDidMount() {
+  //   this.props.onTryAutoSignUp();
+  // }
 
-  render() {
-    let routes = (
+  // useEffect replaces componentDidMount for functional components using hooks
+  useEffect(() => {
+    props.onTryAutoSignUp();
+  }, []); // empty dependncy means that the useEffect will only run once
+
+  let routes = (
+    <Switch>
+      <Route path="/auth" component={Auth}></Route>
+      <Route path="/" exact component={BurgerBuilder}></Route>
+      <Redirect to="/"></Redirect>
+    </Switch>
+  );
+
+  if (props.isAuthenticated) {
+    routes = (
       <Switch>
         <Route path="/auth" component={Auth}></Route>
+        <Route path="/checkout" component={Checkout}></Route>
+        <Route path="/orders" component={Orders}></Route>
+        <Route path="/logout" component={Logout}></Route>
         <Route path="/" exact component={BurgerBuilder}></Route>
         <Redirect to="/"></Redirect>
-      </Switch>
+    </Switch>
     );
-
-    if (this.props.isAuthenticated) {
-      routes = (
-        <Switch>
-          <Route path="/auth" component={Auth}></Route>
-          <Route path="/checkout" component={Checkout}></Route>
-          <Route path="/orders" component={Orders}></Route>
-          <Route path="/logout" component={Logout}></Route>
-          <Route path="/" exact component={BurgerBuilder}></Route>
-          <Redirect to="/"></Redirect>
-      </Switch>
-      );
-    }
-
-    return (
-      <div>
-        <Layout>    
-            {routes}
-        </Layout>
-      </div>
-    )
   }
+
+  return (
+    <div>
+      <Layout>    
+          {routes}
+      </Layout>
+    </div>
+  );
 }
 
 const mapStateToProps = state => {

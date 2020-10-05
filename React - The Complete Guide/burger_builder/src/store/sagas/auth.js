@@ -29,11 +29,14 @@ export function* authUserSaga(action) {
         url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBraZg8twyC69JmKJzr0VrxI-N9snYkVJU'
     }
     try {
+        console.log('set token');
         const res = yield axios.post(url,authData);
         const expirationDate = yield new Date(new Date().getTime() + 60*60*1000);
-        localStorage.setItem('token', res.data.idToken);
-        localStorage.setItem('expirationDate', expirationDate);
-        localStorage.setItem('userID', res.data.localId);
+        yield localStorage.setItem('token', res.data.idToken);
+        yield localStorage.setItem('expirationDate', expirationDate);
+        console.log(res.data.idToken);
+        console.log(expirationDate);
+        yield localStorage.setItem('userID', res.data.localId);
         yield put(actions.authSuccess(res.data));
         yield put(actions.checkAuthTimeout(60*60*1000));
     } catch(err) {
@@ -41,10 +44,10 @@ export function* authUserSaga(action) {
     }
 }
 
-export function authCheckStateSaga(action) {
+export function* authCheckStateSaga(action) {
     const token = yield localStorage.getItem('token');
     if (!token) {
-        yield get(actions.authLogout());
+        yield put(actions.authLogout());
     } else {
         const expDate = yield new Date(localStorage.getItem('expirationDate'));
         if (expDate > new Date()) {
@@ -52,7 +55,7 @@ export function authCheckStateSaga(action) {
             put(actions.authSuccess({idToken: token, userId: userID}));
             put(actions.checkAuthTimeout((expDate.getTime() - new Date().getTime())));// getTime() returns value in milliseconds
         } else {
-            put(authLogout());
+            put(actions.authLogout());
         }            
     } 
 }
